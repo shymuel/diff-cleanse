@@ -9,14 +9,14 @@ We supplement the missing functions in the official code and add some code to ca
 We appreciate BadDiff/VillanDiff/TrojDiff/Elijah/TERD/Diff-Pruning the excellent work.
 
 To do list:
-- [] Upload the code of BadDiff (modified for more efficient measurement)
-- [] Upload the code of VillanDiff (modified to run the code successfully)
-- [] Upload the code of TrojDiff (add code of evaluating the model)
-- [] Upload the code of Elijah (modified for more efficient measurement)
-- [] Upload the code of TERD (we reproduced some unreleased code, and the effect may be different from the results in the original paper)
-- [] Upload the code for Diff-Cleanse:
-  - [] Upload the code for backdoor detection
-  - [] Upload the code for backdoor removal
+- [√] Upload the code of BadDiff (modified for more efficient measurement), 2025/01/04.
+- [ ] Upload the code of VillanDiff (modified to run the code successfully)
+- [ ] Upload the code of TrojDiff (add code of evaluating the model)
+- [ ] Upload the code of Elijah (modified for more efficient measurement)
+- [ ] Upload the code of TERD (we reproduced some unreleased code, and the effect may be different from the results in the original paper)
+- [ ] Upload the code for Diff-Cleanse:
+  - [ ] Upload the code for backdoor detection
+  - [ ] Upload the code for backdoor removal
 
 The check points of clean and backdoored diffusion models we used will be available with the next work. Thank you for your attention and patience.
 

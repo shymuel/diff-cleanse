@@ -14,7 +14,7 @@ from torch.optim import Adam
 from dataset import DatasetLoader
 
 import os
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+# os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
 # """## What is a diffusion model?
 
@@ -699,11 +699,9 @@ class DiffuserModelSched():
     @staticmethod
     def get_pretrained(ckpt: str, clip_sample: bool=None, noise_sched_type: str=None):
         if ckpt == DiffuserModelSched.DDPM_CIFAR10_32:
-            # ckpt: str = "google/ddpm-cifar10-32"
-            ckpt: str = "D:/Diff-Cleanse/models/ddpm-cifar10-32"
+            ckpt: str = "google/ddpm-cifar10-32"
         elif ckpt == DiffuserModelSched.DDPM_CELEBA_HQ_256:
-            # ckpt: str = "google/ddpm-ema-celebahq-256"
-            ckpt: str = "D:/Diff-Cleanse/models/ddpm-ema-celebahq-256"
+            ckpt: str = "google/ddpm-ema-celebahq-256"
         elif ckpt == DiffuserModelSched.DDPM_CHURCH_256:
             ckpt: str = "google/ddpm-ema-church-256"
         elif ckpt == DiffuserModelSched.DDPM_BEDROOM_256:

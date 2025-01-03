@@ -92,7 +92,9 @@ class DatasetLoader(object):
         elif name == DatasetLoader.CELEBA:
             return load_dataset("student/celebA", split='train')
         elif name == DatasetLoader.CELEBA_HQ:
-            return load_dataset("D:\\00_dataset\\celebahq-1024", split="train+validation")  # type image  <class 'PIL.JpegImagePlugin.JpegImageFile'>
+            # type image  <class 'PIL.JpegImagePlugin.JpegImageFile'>
+            # return load_dataset("huggan/CelebA-HQ", split=split_method)
+            return load_dataset("datasets/celeba_hq_256", split='train')
         else:
             raise NotImplementedError(f"Undefined dataset: {name}")
 
@@ -123,32 +125,31 @@ class DatasetLoader(object):
             self.__image_size = image_size
 
     def __get_transform(self, prev_trans: List = [], next_trans: List = []):
-        if self.__channel == 1:  # 转换为灰度图
+        if self.__channel == 1: 
             channel_trans = transforms.Grayscale(num_output_channels=1)
-        elif self.__channel == 3:  # 转换为RGB图
+        elif self.__channel == 3:
             channel_trans = transforms.Lambda(lambda x: x.convert("RGB"))
 
         aug_trans = []
         if self.__dataset != DatasetLoader.LSUN_CHURCH:
-            aug_trans = [transforms.RandomHorizontalFlip()]  # 添加随机水平翻转的数据增强
+            aug_trans = [transforms.RandomHorizontalFlip()] 
 
         trans = [channel_trans,
                  transforms.Resize([self.__image_size, self.__image_size]),
                  transforms.ToTensor(),
                  transforms.Lambda(
                      lambda x: normalize(vmin_in=0, vmax_in=1, vmin_out=self.__vmin, vmax_out=self.__vmax, x=x)),
-                 # normalize是util.py中定义的正则化
                  # transforms.Normalize([0.5], [0.5]),
                  ] + aug_trans
         return Compose(prev_trans + trans + next_trans)
 
-    def __fixed_sz_dataset_old(self):  # 固定大小的数据集
+    def __fixed_sz_dataset_old(self): 
         gen = torch.Generator()
         gen.manual_seed(self.__seed)
 
         # Apply transformations
         self.__full_dataset = self.__dataset.with_transform(
-            self.__transform_generator(self.__name, True))  # true意味着取得干净图片
+            self.__transform_generator(self.__name, True)) 
 
         # Generate poisoned dataset
         if self.__poison_rate > 0:
@@ -158,20 +159,20 @@ class DatasetLoader(object):
             self.__clean_n = full_ds_len - self.__poison_n
 
             self.__full_dataset[DatasetLoader.TRAIN] = Subset(self.__full_dataset[DatasetLoader.TRAIN],
-                                                              perm_idx[:self.__clean_n].tolist())  # clean input
+                                                              perm_idx[:self.__clean_n].tolist()) 
 
             self.__backdoor_dataset = self.__dataset.with_transform(self.__transform_generator(self.__name, False))
             self.__backdoor_dataset = Subset(self.__backdoor_dataset[DatasetLoader.TRAIN],
-                                             perm_idx[self.__clean_n:].tolist())  # backdoor input
+                                             perm_idx[self.__clean_n:].tolist()) 
             self.__full_dataset[DatasetLoader.TRAIN] = ConcatDataset(
-                [self.__full_dataset[DatasetLoader.TRAIN], self.__backdoor_dataset])  # 训练集是clean+backdoor
+                [self.__full_dataset[DatasetLoader.TRAIN], self.__backdoor_dataset]) 
         self.__full_dataset = self.__full_dataset[DatasetLoader.TRAIN]
 
     def manual_split(self):
         pass
 
     def __fixed_sz_dataset(self):
-        print("fixed_sz_dataset")  # 走的是这个代码
+        print("fixed_sz_dataset") 
         gen = torch.Generator()
         gen.manual_seed(self.__seed)
 
@@ -209,7 +210,7 @@ class DatasetLoader(object):
                 return self.__transform_generator(self.__name, True)(x)
             return self.__transform_generator(self.__name, False)(x)
 
-        self.__full_dataset = concatenate_datasets(ds_ls)  # dataset中每个图片添加isclean列
+        self.__full_dataset = concatenate_datasets(ds_ls) 
         self.__full_dataset = self.__full_dataset.with_transform(trans)
 
     def __flex_sz_dataset_old(self):
@@ -318,9 +319,9 @@ class DatasetLoader(object):
                 if img_key != DatasetLoader.IMAGE:
                     del examples[img_key]
 
-            examples[DatasetLoader.PIXEL_VALUES] = torch.full_like(examples[DatasetLoader.IMAGE], 0)  # 全0张量
-            examples[DatasetLoader.TARGET] = torch.clone(examples[DatasetLoader.IMAGE])  # 原图
-            if DatasetLoader.LABEL in examples:  # 有label用原label，否则用-1
+            examples[DatasetLoader.PIXEL_VALUES] = torch.full_like(examples[DatasetLoader.IMAGE], 0) 
+            examples[DatasetLoader.TARGET] = torch.clone(examples[DatasetLoader.IMAGE])  # original images
+            if DatasetLoader.LABEL in examples:
                 examples[DatasetLoader.LABEL] = torch.tensor(
                     [torch.tensor(x, dtype=torch.float) for x in examples[DatasetLoader.LABEL]])
             else:
@@ -466,7 +467,6 @@ class Backdoor():
                  transforms.ToTensor(),
                  #  transforms.Lambda(lambda x: normalize(vmin_out=vmin, vmax_out=vmax, x=x)),
                  transforms.Lambda(lambda x: normalize(vmin_in=0.0, vmax_in=1.0, vmin_out=vmin, vmax_out=vmax, x=x)),
-                 # 归一化处理
                  #  transforms.Lambda(lambda x: x * 2 - 1),
                  ]
         return Compose(prev_trans + trans + next_trans)

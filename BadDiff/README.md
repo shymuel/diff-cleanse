@@ -1,7 +1,9 @@
 # BadDiffusion
 "How to Backdoor Diffusion Models?" published at CVPR 2023. The official repo is [BadDiff](https://github.com/IBM/BadDiffusion).
 
-We provice codes for training, sampling and measuring.
+BadDiff can only attack DDPM models and only works with DDPM sampler. The original paper tests BadDiff on CIFAR10 and CelebA-HQ 256 datasets.
+We provice codes for training, sampling and measuring. 
+
 
 ## Training
 ```
