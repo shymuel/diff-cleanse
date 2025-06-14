@@ -1,0 +1,1 @@
+python baddiffusion.py --project default --mode sampling --ckpt E:\12_diffusionmodel\BadDiffusion\res_DDPM-CIFAR10-32_CIFAR10_ep5_c1.0_p0.05_BOX_14-TRIGGER --sched DDPM-SCHED --fclip o --gpu 0

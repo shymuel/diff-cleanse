@@ -499,7 +499,7 @@ class DatasetLoader(object):
     def save_dataset(self, file: str):
         self.__full_dataset.save_to_disk(file)
 
-    def get_dataloader(self, batch_size: int = None, shuffle: bool = None, num_workers: int = 0,  # num workers不能设成1，要设置成0
+    def get_dataloader(self, batch_size: int = None, shuffle: bool = None, num_workers: int = 0,
                        collate_fn: callable = None) -> torch.utils.data.DataLoader:
         datasets = self.get_dataset()
         if batch_size == None:

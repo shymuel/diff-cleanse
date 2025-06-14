@@ -9,16 +9,21 @@ We supplement the missing functions in the official code and add some code to ca
 We appreciate BadDiff/VillanDiff/TrojDiff/Elijah/TERD/Diff-Pruning the excellent work.
 
 To do list:
-- [√] Upload the code of BadDiff (modified for more efficient measurement), 2025/01/04.
-- [ ] Upload the code of VillanDiff (modified to run the code successfully)
-- [ ] Upload the code of TrojDiff (add code of evaluating the model)
-- [ ] Upload the code of Elijah (modified for more efficient measurement)
-- [ ] Upload the code of TERD (we reproduced some unreleased code, and the effect may be different from the results in the original paper)
-- [ ] Upload the code for Diff-Cleanse:
-  - [ ] Upload the code for backdoor detection
-  - [ ] Upload the code for backdoor removal
-
-The check points of clean and backdoored diffusion models we used will be available with the next work. Thank you for your attention and patience.
+- [√] Upload the code of BadDiff (modified for more efficient measurement).
+- [√] Upload the code of VillanDiff (modified to run the code successfully)
+- [√] Upload the code of TrojDiff (add code of evaluating the model)
+- [√] Upload the code of Elijah (modified for more efficient measurement)
+- [√] Upload the code of TERD (we reproduced some unreleased code, and the effect may be different from the results in the original paper)
+- [√] Upload the code for Diff-Cleanse:
+  - [√] Upload the code for backdoor detection: BadDiff, VillanDiff, TrojDiff
+  - [] Upload the code for backdoor removal
+    - [] DDPM1-CIFAR10, DDPM3-CelebAHQ
+    - [] NCSN-CIFAR10
+    - [] LDM-CelebaHQ_Latent
+    - [] DDPM2-CIFAR10, DDPM4-CelebA
 
 We download the CIFAR10 and CelebA dataset from the official repo, and CelebA-HQ dataset from mattymchen/celeba-hq on HuggingFace.
+
 More detailed instructions can be found in the md files in the various subfolders.
+
+For Diff-Cleanse, the code for trigger inversion has been placed in the corresponding attack folder, and the names start with "BBTI_helper". The code for removing and fine-tuning the backdoor has been placed in the "Diff-Cleanse" folder.
