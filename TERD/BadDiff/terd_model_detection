@@ -1,0 +1,3 @@
+# detection-ddpm1-cifar10
+python model_detection.py --path D:\TERD\TERD2\BadDiffusion\log\logReverse\Clean-res_DDPM-CELEBA-HQ-256_CELEBA-HQ_ep0_ode_c1.0_p0.0_epr0.0_GLASSES-CAT\reverse.pkl
+python model_detection.py --path D:\TERD\BadDiffusion\Clean_NCSN_CIFAR10_reverse\res_NCSN_CIFAR10_my_CIFAR10_ep2_sde_c1.0_p0.3_epr0.0_STOP_SIGN_14-FEDORA_HAT\Reverse\log_5e-05_1000_100_16_0.5\reverse.pkl
